@@ -1,0 +1,86 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mangas",
+  "info": {
+    "singularName": "manga",
+    "pluralName": "mangas",
+    "displayName": "Manga",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true,
+    "timestamps": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "minLength": 3
+    },
+    "description": {
+      "type": "richtext",
+      "minLength": 100,
+      "maxLength": 2000,
+      "required": true
+    },
+    "published": {
+      "type": "date"
+    },
+    "volumes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::volume.volume",
+      "mappedBy": "manga"
+    },
+    "genre": {
+      "type": "string",
+      "required": false
+    },
+    "author": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::author.author",
+      "inversedBy": "mangas"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "manga"
+    },
+    "chapters": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::chapter.chapter",
+      "mappedBy": "manga"
+    },
+    "favouriteBy": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "favouriteMangas"
+    },
+    "finishedBy": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "finishedMangas"
+    },
+    "readlistBy": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "readlistMangas"
+    }
+  }
+}
